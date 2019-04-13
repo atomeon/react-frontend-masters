@@ -34,7 +34,7 @@ class App extends React.Component {
 
     return (
       <>
-        <h1 onClick={this.handleTitleClick}>Adopt me!</h1>
+        <h1>Adopt me!</h1>
         <Pet name="Luna" animal="dog" breed="Ovcharka" />
         <Pet name="Ralph" animal="dog" breed="Ovcharka" />
         <Pet name="Buran" animal="dog" breed="Yardy" />
