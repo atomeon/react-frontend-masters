@@ -75,7 +75,14 @@ class App extends React.Component {
             } else {
               breed = pet.breeds.breed;
             }
-            return <Pet animal={pet.animal} name={pet.name} breed={breed} />;
+            return (
+              <Pet
+                key={pet.id}
+                animal={pet.animal}
+                name={pet.name}
+                breed={breed}
+              />
+            );
           })}
         </div>
       </div>
