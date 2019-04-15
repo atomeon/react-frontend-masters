@@ -1,7 +1,7 @@
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
 import pf from "petfinder-client";
-import { Pet } from "./Pet";
+import Pet from "./Pet";
 
 const petfinder = pf({
   key: process.env.API_KEY,
@@ -18,10 +18,9 @@ class App extends React.Component {
   }
   componentDidMount() {
     petfinder.pet
-      .find({ output: "full", location: "Seattle, WA" })
+      .find({ location: "Seattle, WA", output: "full" })
       .then(data => {
         let pets;
-
         if (data.petfinder.pets && data.petfinder.pets.pet) {
           if (Array.isArray(data.petfinder.pets.pet)) {
             pets = data.petfinder.pets.pet;
@@ -31,45 +30,18 @@ class App extends React.Component {
         } else {
           pets = [];
         }
-
         this.setState({
           pets
         });
       });
   }
   render() {
-    // return React.createElement('div', {}, [
-    // 	React.createElement(
-    // 		'h1',
-    // 		{ onClick: this.handleTitleClick },
-    // 		'Adopt me!'),
-    // 	React.createElement(Pet, {
-
-    // 		name: 'Lunak',
-    // 		animal: 'dog',
-    // 		breed: 'hovenese'
-    // 	}),
-    // 	React.createElement(Pet, {
-
-    // 		name: 'Tuzik',
-    // 		animal: 'dog',
-    // 		breed: 'dvornyaga'
-    // 	}),
-    // 	React.createElement(Pet, {
-
-    // 		name: 'Buran',
-    // 		animal: 'dog',
-    // 		breed: 'prosto'
-    // 	}),
-    // ])
-
     return (
       <div>
-        <h1>Adopt me!</h1>
-        <div>
+        <h1>Adopt Me!</h1>
+        <div className="search">
           {this.state.pets.map(pet => {
             let breed;
-
             if (Array.isArray(pet.breeds.breed)) {
               breed = pet.breeds.breed.join(", ");
             } else {
@@ -77,10 +49,12 @@ class App extends React.Component {
             }
             return (
               <Pet
-                key={pet.id}
                 animal={pet.animal}
+                key={pet.id}
                 name={pet.name}
                 breed={breed}
+                media={pet.media}
+                location={`${pet.contact.city}, ${pet.contact.state}`}
               />
             );
           })}
@@ -90,4 +64,4 @@ class App extends React.Component {
   }
 }
 
-render(React.createElement(App), document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
