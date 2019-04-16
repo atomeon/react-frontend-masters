@@ -46,12 +46,13 @@ class Results extends React.Component {
             }
             return (
               <Pet
+			  	key={pet.id}
                 animal={pet.animal}
-                key={pet.id}
                 name={pet.name}
                 breed={breed}
                 media={pet.media}
-                location={`${pet.contact.city}, ${pet.contact.state}`}
+				location={`${pet.contact.city}, ${pet.contact.state}`}
+				id={pet.id}
               />
             );
           })}
